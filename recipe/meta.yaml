@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ctrl-benchmark-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ctrl-benchmark-{{ version }}.tar.gz
   sha256: bdea1617448468662b9ad99dbc6975adb7af1503fd62688d7b621af6c52670a4
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - bs4
     - networkx >2,<3
     - plotly
     - pydot
-    - python >=3.6
+    - python >={{ python_min }}
     - pyyaml
     - scikit-learn
     - pytorch >=1.3,<2
@@ -31,6 +31,8 @@ requirements:
     - tqdm
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - ctrl
 
